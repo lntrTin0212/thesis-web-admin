@@ -1,0 +1,93 @@
+<button (click)="handleBack()">Back</button>
+<div class="container">
+    <div class="vocab-wrapper">
+        <div class="topic-title">{{topicName}}</div>
+        <div class="tabs">
+            <mat-tab-group mat-align-tabs="center" animationDuration="0ms">
+                <ng-container *ngIf="haveSubclass">
+                    <mat-tab
+                        *ngFor="let subclass of dataSource.data"
+                        [label]="dataSource.data[0]['subClassName'] || '{{topicName}}' "
+                    >
+                    
+                        <div class="mat-elevation-z8">
+                            <table mat-table [dataSource]="dataSource">
+
+                                <ng-container matColumnDef="no">
+                                    <th mat-header-cell *matHeaderCellDef> no </th>
+                                    <td mat-cell *matCellDef="let elements">
+                                        <a routerLink='/topic/{{elements}}'>
+                                            {{elements.no}}
+                                        </a>
+                                    </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="vocabulary">
+                                    <th mat-header-cell *matHeaderCellDef> vocabulary </th>
+                                    <td mat-cell *matCellDef="let elements">
+                                        <a routerLink='/topic/{{elements}}'>
+                                            {{elements.vocabulary}}
+                                        </a>
+                                    </td>
+                                </ng-container>
+                                
+                                <ng-container matColumnDef="edit">                              
+
+                                    <th mat-header-cell *matHeadeu\rCellDef> edit </th>
+                                    <td mat-cell *matCellDef="let elements">
+                                        <a routerLink='/topic/{{elements}}'>
+                                            {{elements.edit}}
+                                        </a>
+                                    </td>
+
+                                </ng-container>
+                                
+                                <ng-container matColumnDef="delete">
+                                    <th mat-header-cell *matHeaderCellDef> delete </th>
+                                    <td mat-cell *matCellDef="let elements">
+                                        <a routerLink='/topic/{{elements}}'>
+                                            {{elements.delete}}
+                                        </a>
+                                    </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                            </table>
+                            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+                                aria-label="Select page of periodic elements">
+                            </mat-paginator>
+                        </div>
+                      
+                    </mat-tab>
+                </ng-container>
+                <ng-container *ngIf="!haveSubclass">
+                    <mat-tab [label]="topicName">
+                        <div class="vocab-list">
+                            <div class="vocab-item" *ngFor="let subclass of dataSource.data;let idx = index">
+                                <p>
+                                    <span>{{idx}}</span>
+                                    <span>{{subclass}}</span>
+                                </p>
+                            </div>
+                        </div>
+                    </mat-tab>
+                </ng-container>
+            </mat-tab-group>
+        </div>
+    </div>
+</div>
+  <!-- <div class="vocab-list">
+        <div class="vocab-item" *ngFor="let vocab of subclass['vocabs']; let idx = index">
+            <p>{{idx}}</p>
+            <p>{{vocab}}</p>
+            <div class="edit">
+                <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="edit">
+                </mat-icon>
+            </div>
+            <div class="delete">
+                <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="delete">
+                </mat-icon>
+            </div>
+        </div>
+    </div> -->
